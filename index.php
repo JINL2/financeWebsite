@@ -1,23 +1,24 @@
 <?php
-/**
- * 재무관리 시스템 - 메인 진입점
- */
+// 테스트용 index.php
+echo "Hello from Railway!<br>";
+echo "PHP Version: " . phpversion() . "<br>";
+echo "Server is working!<br>";
 
-// 세션 체크
+// 파일 목록 확인
+echo "<h3>Files in directory:</h3>";
+$files = scandir(__DIR__);
+foreach($files as $file) {
+    echo $file . "<br>";
+}
+
+// 원래 코드를 주석처리하고 점진적으로 활성화
+/*
 session_start();
-
-// 이미 로그인한 경우 대시보드로 이동
 if (isset($_GET['user_id']) && isset($_GET['company_id'])) {
-    header('Location: dashboard/?user_id=' . $_GET['user_id'] . '&company_id=' . $_GET['company_id']);
-    exit;
+    header("Location: dashboard/");
+    exit();
 }
-
-// 세션에 저장된 정보가 있으면 대시보드로 이동
-if (isset($_SESSION['user_id']) && isset($_SESSION['company_id'])) {
-    header('Location: dashboard/?user_id=' . $_SESSION['user_id'] . '&company_id=' . $_SESSION['company_id']);
-    exit;
-}
-
-// 로그인 페이지로 이동
-header('Location: login/');
-exit;
+header("Location: login/");
+exit();
+*/
+?>

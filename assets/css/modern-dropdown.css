@@ -1,0 +1,222 @@
+/* 
+=================================================================================
+Modern Dropdown CSS - 2024 UX Best Practices
+=================================================================================
+Based on latest UI/UX trends:
+- Clear visual affordance (looks clickable)
+- Proper spacing and accessibility
+- Smooth animations and feedback
+- Intuitive arrow positioning
+- Modern gradient and shadow effects
+=================================================================================
+*/
+
+/* 메인 드롭다운 컨테이너 */
+.company-dropdown-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+
+.company-dropdown-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* 모던 드롭다운 스타일 */
+.navbar .form-select {
+    /* 버튼처럼 보이는 직관적 디자인 */
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    
+    /* 충분한 패딩과 공간 확보 */
+    padding: 0.7rem 1rem !important;
+    padding-right: 2.8rem !important; /* 화살표 공간 확보 */
+    min-width: 180px !important;
+    max-width: 250px !important;
+    
+    /* 모던한 둥근 모서리 */
+    border-radius: 10px !important;
+    
+    /* 화살표 디자인 - 깔끔하고 명확한 위치 */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 0.8rem center !important;
+    background-size: 12px 8px !important;
+    
+    /* 부드러운 전환 효과 */
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    
+    /* 깊이감 있는 그림자 */
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    
+    /* 텍스트 처리 */
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    
+    /* 커서 포인터로 클릭 가능함을 명시 */
+    cursor: pointer !important;
+}
+
+/* 호버 상태 - 명확한 인터랙션 피드백 */
+.navbar .form-select:hover {
+    /* 밝아지는 그라데이션 */
+    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    
+    /* 살짝 위로 올라가는 효과 */
+    transform: translateY(-1px) !important;
+    
+    /* 더 강한 그림자 */
+    box-shadow: 
+        0 8px 25px rgba(59, 130, 246, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    
+    /* 화살표 강조 */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+/* 포커스/활성 상태 - 드롭다운이 열린 상태 */
+.navbar .form-select:focus,
+.navbar .form-select:active {
+    /* 활성 상태 색상 */
+    background: linear-gradient(135deg, #4338ca 0%, #3730a3 100%) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    outline: none !important;
+    
+    /* 위치 유지 */
+    transform: translateY(-1px) !important;
+    
+    /* 강한 포커스 그림자 */
+    box-shadow: 
+        0 0 0 3px rgba(59, 130, 246, 0.3),
+        0 8px 25px rgba(59, 130, 246, 0.25),
+        0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    
+    /* 화살표 180도 회전 - 열림 상태 표시 */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' transform='rotate(180)'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M2 5l6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+/* 비활성 상태 - 필요한 경우 */
+.navbar .form-select:disabled {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    cursor: not-allowed !important;
+    opacity: 0.6 !important;
+    transform: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 옵션 스타일링 */
+.navbar .form-select option {
+    background: #1e293b !important;
+    color: white !important;
+    padding: 0.5rem 1rem !important;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .company-dropdown-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .navbar .form-select {
+        min-width: 140px !important;
+        font-size: 0.85rem !important;
+        padding: 0.6rem 0.8rem !important;
+        padding-right: 2.4rem !important;
+        background-position: right 0.6rem center !important;
+    }
+    
+    .company-dropdown-label {
+        font-size: 0.8rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar .form-select {
+        min-width: 120px !important;
+        max-width: 160px !important;
+        font-size: 0.8rem !important;
+    }
+}
+
+/* 액세서빌리티 향상 */
+@media (prefers-reduced-motion: reduce) {
+    .navbar .form-select {
+        transition: none !important;
+    }
+}
+
+/* 다크모드 대응 */
+@media (prefers-color-scheme: dark) {
+    .navbar .form-select {
+        background: linear-gradient(135deg, #374151 0%, #1f2937 100%) !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+    
+    .navbar .form-select:hover {
+        background: linear-gradient(135deg, #4b5563 0%, #374151 100%) !important;
+    }
+}
+
+/* 브라우저별 호환성 */
+.navbar .form-select {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+/* IE 호환성 */
+.navbar select::-ms-expand {
+    display: none;
+}
+
+/* 인터랙션 개선을 위한 미세 조정 */
+.navbar .form-select::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: transparent;
+    pointer-events: none;
+    border-radius: inherit;
+    transition: all 0.2s ease;
+}
+
+/* 로딩 상태 (옵션) */
+.navbar .form-select.loading {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%23ffffff' d='M8 0a8 8 0 0 1 8 8 1 1 0 0 1-2 0 6 6 0 1 0-6 6 1 1 0 0 1 0 2 8 8 0 0 1 0-16z'/%3e%3c/svg%3e") !important;
+    background-position: right 0.8rem center !important;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 성공/에러 상태 */
+.navbar .form-select.success {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2) !important;
+}
+
+.navbar .form-select.error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2) !important;
+}

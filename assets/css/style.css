@@ -1,0 +1,525 @@
+/**
+ * 재무관리 시스템 스타일시트
+ */
+
+/* 기본 변수 */
+:root {
+    --primary-color: #0d6efd;
+    --success-color: #198754;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #0dcaf0;
+    --dark-color: #212529;
+    --light-color: #f8f9fa;
+    --border-color: #dee2e6;
+}
+
+/* 기본 스타일 */
+body {
+    background-color: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 네비게이션 커스터마이징 */
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* 요약 카드 */
+.summary-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.summary-card h3 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.summary-card h6 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* 카드 스타일 */
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 500;
+}
+
+/* 테이블 스타일 */
+.table {
+    font-size: 0.95rem;
+}
+
+.table thead th {
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+/* 거래 내역 스타일 */
+.transaction-item {
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+    transition: background-color 0.2s;
+}
+
+.transaction-item:hover {
+    background-color: rgba(0,0,0,0.02);
+}
+
+.tx-icon {
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.tx-amount {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.tx-amount.debit {
+    color: var(--success-color);
+}
+
+.tx-amount.credit {
+    color: var(--danger-color);
+}
+
+/* 현금 위치 정보 */
+.cash-info {
+    display: inline-flex;
+    align-items: center;
+    background: #e3f2fd;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    color: #1976d2;
+}
+
+/* 채권/채무 정보 */
+.debt-info {
+    display: inline-flex;
+    align-items: center;
+    background: #fff3e0;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    color: #f57c00;
+}
+
+/* 진행률 바 */
+.progress {
+    height: 20px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+/* 단계 표시기 */
+.step-indicator {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.step-indicator .step {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    font-weight: bold;
+    color: #6c757d;
+    position: relative;
+}
+
+.step-indicator .step.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+.step-indicator .step.completed {
+    background: var(--success-color);
+    color: white;
+}
+
+.step-indicator .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: #e9ecef;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.step-indicator .step.completed:not(:last-child)::after {
+    background: var(--success-color);
+}
+
+/* 거래 유형 버튼 */
+.transaction-type-btn {
+    padding: 30px;
+    font-size: 1.5rem;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.transaction-type-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.transaction-type-btn.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13,110,253,0.25);
+}
+
+/* 카테고리 버튼 */
+.category-btn {
+    padding: 20px;
+    margin: 5px;
+    min-width: 150px;
+    border: 2px solid #dee2e6;
+    transition: all 0.2s;
+}
+
+.category-btn:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* 필터 컨테이너 */
+.filter-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 상태별 색상 */
+.overdue {
+    color: var(--danger-color);
+    font-weight: bold;
+}
+
+.has-difference {
+    background-color: #fff3cd;
+}
+
+.negative {
+    color: var(--danger-color);
+}
+
+.positive {
+    color: var(--success-color);
+}
+
+/* 뱃지 스타일 */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+/* 날짜별 구분선 */
+.border-top-primary {
+    border-top: 3px solid var(--primary-color) !important;
+}
+
+.date-header {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    font-weight: bold;
+    color: #495057;
+    margin: 0 -15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .summary-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .transaction-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .filter-container {
+        padding: 15px;
+    }
+    
+    .filter-select {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .table {
+        font-size: 0.85rem;
+    }
+    
+    .category-btn {
+        min-width: 100%;
+        margin: 5px 0;
+    }
+    
+    .transaction-type-btn {
+        padding: 20px;
+        font-size: 1.2rem;
+    }
+}
+
+/* 인쇄 스타일 */
+@media print {
+    .navbar, .btn, .filter-container, .modal {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+    }
+    
+    body {
+        background: white;
+    }
+}
+
+/* 로딩 상태 */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 툴팁 커스터마이징 */
+.tooltip-inner {
+    background-color: var(--dark-color);
+    font-size: 0.875rem;
+}
+
+/* 알림 커스터마이징 */
+.alert {
+    border: none;
+    border-radius: 8px;
+}
+
+.alert-info {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+}
+
+.alert-success {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+}
+
+.alert-warning {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.alert-danger {
+    background-color: #ffebee;
+    color: #b71c1c;
+}
+
+/* ================================================================
+   12 Month Comparison Table Styles
+   12개월 비교 테이블 전용 스타일
+   ================================================================ */
+
+/* 가로 스크롤 가능한 테이블 컨테이너 */
+.income-statement-table {
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 100%;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+
+/* 고정 컬럼 (계정명) */
+.sticky-column {
+    position: sticky;
+    left: 0;
+    background: white;
+    z-index: 10;
+    border-right: 2px solid #dee2e6;
+    min-width: 200px;
+    max-width: 200px;
+    font-weight: 500;
+    padding: 12px 16px;
+    vertical-align: middle;
+    box-shadow: 2px 0 4px rgba(0,0,0,0.05);
+}
+
+/* 월별 데이터 컬럼 */
+.month-column {
+    min-width: 100px;
+    max-width: 100px;
+    text-align: right;
+    font-size: 0.9em;
+    padding: 8px 12px;
+    vertical-align: middle;
+    border-left: 1px solid #f0f0f0;
+    white-space: nowrap;
+}
+
+/* 섹션 헤더 (REVENUE, EXPENSES 등) */
+.section-header td {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #495057;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    padding: 12px 16px;
+    border-top: 2px solid #dee2e6;
+    letter-spacing: 0.5px;
+}
+
+/* 소계 행 (Total Revenue, Total Expenses) */
+.subtotal-row {
+    background-color: #f1f3f4;
+    border-top: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.subtotal-row td {
+    font-weight: 600;
+    padding: 10px 16px;
+    color: #343a40;
+}
+
+/* 순이익 행 */
+.net-income-row {
+    background-color: #e8f5e9;
+    border-top: 2px solid #28a745;
+    border-bottom: 2px solid #28a745;
+}
+
+.net-income-row td {
+    font-weight: bold;
+    padding: 12px 16px;
+    color: #155724;
+    font-size: 1rem;
+}
+
+/* 양수/음수 값 색상 */
+.positive {
+    color: #28a745;
+}
+
+.negative {
+    color: #dc3545;
+}
+
+/* 12개월 테이블을 위한 반응형 디자인 */
+@media (max-width: 768px) {
+    .sticky-column {
+        min-width: 150px;
+        max-width: 150px;
+        font-size: 0.875rem;
+    }
+    
+    .month-column {
+        min-width: 80px;
+        max-width: 80px;
+        font-size: 0.8rem;
+        padding: 6px 8px;
+    }
+}
+
+/* 테이블 헤더 스타일링 */
+#statementHeader th {
+    background-color: #343a40;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    padding: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 11;
+}
+
+#statementHeader th.sticky-column {
+    text-align: left;
+    z-index: 12;
+}
+
+/* 테이블 바디 호버 효과 */
+#statementBody tr:hover {
+    background-color: #f8f9fa;
+}
+
+#statementBody tr:hover .sticky-column {
+    background-color: #f8f9fa;
+}
+
+/* 스크롤바 커스터마이징 */
+.income-statement-table::-webkit-scrollbar {
+    height: 8px;
+}
+
+.income-statement-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.income-statement-table::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.income-statement-table::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

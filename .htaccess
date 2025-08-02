@@ -1,13 +1,16 @@
-# 디렉토리 끝에 슬래시 자동 추가
-DirectorySlash On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # favicon.ico 직접 처리
+    RewriteRule ^favicon\.ico$ - [L]
+    
+    # 실제 파일이나 디렉토리가 있으면 그대로 제공
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # 그 외에는 index.php로
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
 
-# 인덱스 파일 설정
-DirectoryIndex index.php
-
-# 에러 페이지
-ErrorDocument 404 /luxapp/finance/404.php
-
-# PHP 에러 표시 (개발 환경용)
-php_flag display_errors on
-php_flag display_startup_errors on
-php_value error_reporting -1
+# 디렉토리 인덱스
+DirectoryIndex index.php index.html

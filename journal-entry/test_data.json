@@ -1,0 +1,20 @@
+{
+  "company_id": "7a2545e0-e112-4b0c-9c59-221a530c4602",
+  "store_id": "d3dfa42c-9c18-46ed-8dbc-a6d67a2ab7ff",
+  "entry_date": "2025-07-17",
+  "description": "Test journal entry",
+  "lines": [
+    {
+      "account_id": "d4a7a16e-45a1-47fe-992b-ff807c8673f0",
+      "description": "Cash received", 
+      "debit_amount": 0,
+      "credit_amount": 123
+    },
+    {
+      "account_id": "e45e7d41-7fda-43a1-ac55-9779f3e59697",
+      "description": "Sales revenue",
+      "debit_amount": 123,
+      "credit_amount": 0
+    }
+  ]
+}

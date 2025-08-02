@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked Company Stores Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        .result { margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 4px; }
+        .error { background: #ffe6e6; color: #d00; }
+        .success { background: #e6ffe6; color: #008000; }
+        button { padding: 10px 20px; margin: 5px; background: #007cba; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #005a87; }
+        select { padding: 8px; margin: 5px; border: 1px solid #ddd; border-radius: 4px; min-width: 200px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 Linked Company Stores Test</h1>
+        
+        <div class="test-section">
+            <h3>Test 1: Direct API Call</h3>
+            <p>Testing get_linked_company_stores.php directly</p>
+            <input type="text" id="companyId" placeholder="Enter linked_company_id" value="76539fae-00ae-49f7-b26f-f568277cdc20" style="width: 300px; padding: 8px;">
+            <button onclick="testDirectAPI()">Test Direct API</button>
+            <div id="directResult" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test 2: Simulated Debt Modal Flow</h3>
+            <p>Simulating the Journal Entry debt modal scenario</p>
+            <label>Select Internal Counterparty:</label>
+            <select id="counterpartySelect" onchange="onCounterpartyChange()">
+                <option value="">Select Counterparty</option>
+            </select>
+            <br>
+            <label>Linked Company Stores:</label>
+            <select id="storesSelect">
+                <option value="">Select Store</option>
+            </select>
+            <div id="simulatedResult" class="result" style="display: none;"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test 3: Debug Information</h3>
+            <button onclick="showDebugInfo()">Show Debug Info</button>
+            <div id="debugInfo" class="result" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Test counterparties data - simulating the structure from category_tag_handler.js
+        let counterpartiesData = [
+            {
+                counterparty_id: '3a5cd54e-5d7c-49cb-a714-5ae17d52e923',
+                counterparty_name: 'Cameraon (Internal)',
+                is_internal: true,
+                linked_company_id: '76539fae-00ae-49f7-b26f-f568277cdc20'
+            },
+            {
+                counterparty_id: 'cea87957-3b2f-43dd-b630-2a85c2dca4cb',
+                counterparty_name: 'My Company (Internal)',
+                is_internal: true,
+                linked_company_id: '93b1c17b-22dd-4296-850b-13769458e57b'
+            },
+            {
+                counterparty_id: 'external-123',
+                counterparty_name: 'External Supplier',
+                is_internal: false,
+                linked_company_id: null
+            }
+        ];
+
+        // Initialize counterparty dropdown
+        function initializeCounterpartyDropdown() {
+            const select = document.getElementById('counterpartySelect');
+            counterpartiesData.forEach(cp => {
+                if (cp.is_internal && cp.linked_company_id) {
+                    const option = document.createElement('option');
+                    option.value = cp.counterparty_id;
+                    option.textContent = cp.counterparty_name;
+                    option.dataset.linkedCompanyId = cp.linked_company_id;
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        // Test direct API call
+        async function testDirectAPI() {
+            const companyId = document.getElementById('companyId').value;
+            const resultDiv = document.getElementById('directResult');
+            
+            if (!companyId) {
+                resultDiv.innerHTML = '<span class="error">Please enter a linked_company_id</span>';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                resultDiv.innerHTML = '⏳ Loading...';
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'result';
+                
+                const response = await fetch(`get_linked_company_stores.php?linked_company_id=${encodeURIComponent(companyId)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>✅ Success!</strong><br>
+                            Found ${data.total_count} stores:<br>
+                            <pre>${JSON.stringify(data.data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><strong>❌ Error:</strong> ${data.error}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><strong>❌ Network Error:</strong> ${error.message}</div>`;
+            }
+        }
+
+        // Simulate counterparty selection
+        async function onCounterpartyChange() {
+            const select = document.getElementById('counterpartySelect');
+            const storesSelect = document.getElementById('storesSelect');
+            const resultDiv = document.getElementById('simulatedResult');
+            
+            // Clear previous results
+            storesSelect.innerHTML = '<option value="">Select Store</option>';
+            resultDiv.style.display = 'none';
+            
+            if (!select.value) return;
+            
+            const counterparty = counterpartiesData.find(c => c.counterparty_id === select.value);
+            
+            if (!counterparty || !counterparty.linked_company_id) {
+                resultDiv.innerHTML = '<div class="error">No linked company found</div>';
+                resultDiv.style.display = 'block';
+                return;
+            }
+            
+            try {
+                resultDiv.innerHTML = '⏳ Loading stores...';
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'result';
+                
+                // This is the same call that details_modals.js makes
+                const response = await fetch(`get_linked_company_stores.php?linked_company_id=${encodeURIComponent(counterparty.linked_company_id)}`);
+                const data = await response.json();
+                
+                if (data.success && data.data) {
+                    // Populate dropdown like populateLinkedStoresDropdown does
+                    data.data.forEach(store => {
+                        const option = document.createElement('option');
+                        option.value = store.store_id;
+                        option.textContent = store.store_name;
+                        storesSelect.appendChild(option);
+                    });
+                    
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>✅ Stores loaded successfully!</strong><br>
+                            Found ${data.data.length} stores for linked company ${counterparty.linked_company_id}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error"><strong>❌ Error:</strong> ${data.error || 'Unknown error'}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error"><strong>❌ Network Error:</strong> ${error.message}</div>`;
+            }
+        }
+
+        // Show debug information
+        function showDebugInfo() {
+            const debugDiv = document.getElementById('debugInfo');
+            debugDiv.innerHTML = `
+                <h4>🔍 Debug Information</h4>
+                <strong>Counterparties Data:</strong>
+                <pre>${JSON.stringify(counterpartiesData, null, 2)}</pre>
+                <strong>Current URL:</strong> ${window.location.href}<br>
+                <strong>Test API URL:</strong> ${window.location.origin}${window.location.pathname.replace('test_linked_stores.html', 'get_linked_company_stores.php')}<br>
+                <strong>Browser:</strong> ${navigator.userAgent}
+            `;
+            debugDiv.style.display = 'block';
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCounterpartyDropdown();
+            console.log('🧪 Linked Company Stores Test Page Loaded');
+            console.log('📋 Counterparties Data:', counterpartiesData);
+        });
+    </script>
+</body>
+</html>

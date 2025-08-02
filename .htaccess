@@ -1,0 +1,13 @@
+# 디렉토리 끝에 슬래시 자동 추가
+DirectorySlash On
+
+# 인덱스 파일 설정
+DirectoryIndex index.php
+
+# 에러 페이지
+ErrorDocument 404 /luxapp/finance/404.php
+
+# PHP 에러 표시 (개발 환경용)
+php_flag display_errors on
+php_flag display_startup_errors on
+php_value error_reporting -1

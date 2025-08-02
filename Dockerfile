@@ -1,36 +1,19 @@
-# Financial Management System
-# Docker configuration for easy deployment
+FROM php:8.2-apache
 
-FROM php:8.1-apache
+# Apache가 Railway의 PORT 환경변수를 사용하도록 설정
+RUN sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
 
-# Install required PHP extensions
-RUN docker-php-ext-install pdo pdo_pgsql
+# PHP 확장 설치
+RUN docker-php-ext-install pdo pdo_mysql
 
-# Install additional dependencies
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Enable Apache mod_rewrite
-RUN a2enmod rewrite
-
-# Set working directory
-WORKDIR /var/www/html
-
-# Copy application files
+# 파일 복사
 COPY . /var/www/html/
 
-# Set proper permissions
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# 권한 설정
+RUN chown -R www-data:www-data /var/www/html
 
-# Create .env from example if it doesn't exist
-RUN if [ ! -f .env ]; then cp .env.example .env; fi
+# mod_rewrite 활성화
+RUN a2enmod rewrite
 
-# Expose port 80
-EXPOSE 80
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost/ || exit 1
+# Railway가 제공하는 PORT 사용
+CMD sed -i "s/80/$PORT/g" /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && apache2-foreground

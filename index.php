@@ -1,18 +1,31 @@
 <?php
-/**
- * 재무관리 시스템 - 메인 진입점
- */
+// 에러 표시
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-// 세션 체크
-session_start();
+// 기본 테스트
+echo "<h1>Finance Website</h1>";
+echo "<p>PHP is working!</p>";
+echo "<p>PHP Version: " . phpversion() . "</p>";
 
-// 이미 로그인한 경우 대시보드로 이동
-if (isset($_GET['user_id']) && isset($_GET['company_id'])) {
-    header("Location: dashboard/");
-    exit();
+// 디렉토리 확인
+echo "<h3>Directory Contents:</h3>";
+echo "<pre>";
+print_r(scandir(__DIR__));
+echo "</pre>";
+
+// 로그인 폴더 확인
+if (file_exists(__DIR__ . '/login/index.php')) {
+    echo "<p>✓ Login folder exists</p>";
+    echo '<a href="/login/">Go to Login</a>';
+} else {
+    echo "<p>✗ Login folder NOT found</p>";
 }
 
-// 로그인 페이지로 이동
-header("Location: login/");
-exit();
+// 대시보드 폴더 확인
+if (file_exists(__DIR__ . '/dashboard/index.php')) {
+    echo "<p>✓ Dashboard folder exists</p>";
+} else {
+    echo "<p>✗ Dashboard folder NOT found</p>";
+}
 ?>
